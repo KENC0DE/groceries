@@ -61,7 +61,14 @@ export const addGrocery = async (item) => {
       throw new Error(`Error adding data: ${response.statusText}`);
     }
 
-    return await response.json();
+    const result = await response.json();
+
+    // Check if server returned an error (e.g., duplicate item)
+    if (result.status === "error") {
+      throw new Error(result.message || "Failed to add item");
+    }
+
+    return result;
   } catch (error) {
     console.error("Error adding grocery:", error);
     throw error;

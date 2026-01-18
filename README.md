@@ -30,10 +30,17 @@ npm install
 function doGet(e) {
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Sheet1');
   
-  // Handle different actions via URL parameters
+  // Check if we have parameters
+  if (!e || !e.parameter) {
+    const data = sheet.getDataRange().getValues();
+    return ContentService
+      .createTextOutput(JSON.stringify({ values: data }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+  
   const action = e.parameter.action;
   
-  // If no action, return all data (read operation)
+  // If no action, return all data
   if (!action) {
     const data = sheet.getDataRange().getValues();
     return ContentService
@@ -41,34 +48,60 @@ function doGet(e) {
       .setMimeType(ContentService.MimeType.JSON);
   }
   
-  let result = { status: 'error' };
+  let result = { status: 'error', message: 'Unknown action' };
   
   // Add new item
   if (action === 'add') {
-    const id = e.parameter.id || '';
-    const name = e.parameter.name || '';
-    const price = e.parameter.price || '';
-    const imageUrl = e.parameter.imageUrl || '';
-    sheet.appendRow([id, name, price, imageUrl]);
-    result = { status: 'success' };
+    try {
+      const id = e.parameter.id || '';
+      const name = e.parameter.name || '';
+      const price = e.parameter.price || '';
+      const imageUrl = e.parameter.imageUrl || '';
+      
+      // Check for duplicate name (case-insensitive)
+      const data = sheet.getDataRange().getValues();
+      const nameLower = name.toLowerCase().trim();
+      
+      for (let i = 1; i < data.length; i++) { // Skip header row (i = 1)
+        if (data[i][1] && data[i][1].toString().toLowerCase().trim() === nameLower) {
+          result = { status: 'error', message: 'Item already exists' };
+          return ContentService
+            .createTextOutput(JSON.stringify(result))
+            .setMimeType(ContentService.MimeType.JSON);
+        }
+      }
+      
+      sheet.appendRow([id, name, price, imageUrl]);
+      result = { status: 'success', action: 'add', data: [id, name, price, imageUrl] };
+    } catch (error) {
+      result = { status: 'error', message: error.toString() };
+    }
   }
   
   // Update existing item
   if (action === 'update') {
-    const row = parseInt(e.parameter.row);
-    const id = e.parameter.id || '';
-    const name = e.parameter.name || '';
-    const price = e.parameter.price || '';
-    const imageUrl = e.parameter.imageUrl || '';
-    sheet.getRange(row, 1, 1, 4).setValues([[id, name, price, imageUrl]]);
-    result = { status: 'success' };
+    try {
+      const row = parseInt(e.parameter.row);
+      const id = e.parameter.id || '';
+      const name = e.parameter.name || '';
+      const price = e.parameter.price || '';
+      const imageUrl = e.parameter.imageUrl || '';
+      sheet.getRange(row, 1, 1, 4).setValues([[id, name, price, imageUrl]]);
+      result = { status: 'success', action: 'update' };
+    } catch (error) {
+      result = { status: 'error', message: error.toString() };
+    }
   }
   
   // Delete item
   if (action === 'delete') {
-    const row = parseInt(e.parameter.row);
-    sheet.deleteRow(row);
-    result = { status: 'success' };
+    try {
+      const row = parseInt(e.parameter.row);
+      sheet.deleteRow(row);
+      result = { status: 'success', action: 'delete' };
+    } catch (error) {
+      result = { status: 'error', message: error.toString() };
+    }
   }
   
   return ContentService

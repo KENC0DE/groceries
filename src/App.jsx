@@ -185,6 +185,16 @@ function App() {
       return;
     }
 
+    // Check for duplicate name (case-insensitive)
+    const duplicateItem = groceries.find(
+      (item) => item.name.toLowerCase() === newItem.name.toLowerCase().trim(),
+    );
+
+    if (duplicateItem) {
+      alert(`Item "${newItem.name}" already exists in your list!`);
+      return;
+    }
+
     try {
       const itemToAdd = {
         ...newItem,
@@ -204,9 +214,20 @@ function App() {
       console.log("Item synced successfully to Google Sheets!");
     } catch (err) {
       console.error("Failed to sync item to Google Sheets:", err);
-      alert(
-        "Warning: Item added locally but failed to sync to Google Sheets. Please check console for details.",
+
+      // Check if it's a duplicate error from server
+      if (err.message && err.message.includes("already exists")) {
+        alert(`Item "${itemToAdd.name}" already exists in Google Sheets!`);
+      } else {
+        alert("Warning: Failed to sync to Google Sheets. " + err.message);
+      }
+
+      // Rollback: Remove from local cache since server save failed
+      const rollbackGroceries = groceries.filter(
+        (item) => item.id !== itemToAdd.id,
       );
+      setGroceries(rollbackGroceries);
+      saveToCache(rollbackGroceries);
     }
   };
 
