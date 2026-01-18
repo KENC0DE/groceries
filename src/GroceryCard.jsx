@@ -188,7 +188,10 @@ const GroceryCard = ({ item, onUpdate, onDelete, index }) => {
               alt={editedItem.name}
               className="image-modal-img"
             />
-            <p className="image-modal-title">{editedItem.name}</p>
+            <div className="image-modal-info">
+              <p className="image-modal-title">{editedItem.name}</p>
+              <p className="image-modal-price">{editedItem.price} ETB</p>
+            </div>
           </div>
         </>
       )}

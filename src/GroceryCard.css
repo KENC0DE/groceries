@@ -261,12 +261,30 @@
     transform: scale(1.1);
 }
 
+.image-modal-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
 .image-modal-title {
     color: white;
     font-size: 20px;
     font-weight: 600;
     text-align: center;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    margin: 0;
+}
+
+.image-modal-price {
+    color: #27ae60;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
     margin: 0;
 }
 
@@ -327,5 +345,10 @@
 
     .image-modal-title {
         font-size: 18px;
+    }
+
+    .image-modal-price {
+        font-size: 16px;
+        padding: 6px 14px;
     }
 }
