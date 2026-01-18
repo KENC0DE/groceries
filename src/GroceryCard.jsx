@@ -7,6 +7,7 @@ const GroceryCard = ({ item, onUpdate, onDelete, index }) => {
   const [editedItem, setEditedItem] = useState({ ...item });
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState("");
+  const [showImageModal, setShowImageModal] = useState(false);
 
   const handleSave = async () => {
     try {
@@ -103,6 +104,8 @@ const GroceryCard = ({ item, onUpdate, onDelete, index }) => {
               "https://via.placeholder.com/150?text=No+Image"
             }
             alt={editedItem.name}
+            onClick={() => editedItem.imageUrl && setShowImageModal(true)}
+            style={{ cursor: editedItem.imageUrl ? "pointer" : "default" }}
             onError={(e) => {
               e.target.src = "https://via.placeholder.com/150?text=No+Image";
             }}
@@ -141,7 +144,6 @@ const GroceryCard = ({ item, onUpdate, onDelete, index }) => {
             </>
           )}
         </div>
-
         <div className="grocery-card-actions">
           {isEditing ? (
             <>
@@ -167,6 +169,29 @@ const GroceryCard = ({ item, onUpdate, onDelete, index }) => {
           )}
         </div>
       </div>
+
+      {showImageModal && (
+        <>
+          <div
+            className="image-modal-overlay"
+            onClick={() => setShowImageModal(false)}
+          ></div>
+          <div className="image-modal">
+            <button
+              className="image-modal-close"
+              onClick={() => setShowImageModal(false)}
+            >
+              ✕
+            </button>
+            <img
+              src={editedItem.imageUrl}
+              alt={editedItem.name}
+              className="image-modal-img"
+            />
+            <p className="image-modal-title">{editedItem.name}</p>
+          </div>
+        </>
+      )}
     </div>
   );
 };
