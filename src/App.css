@@ -213,6 +213,7 @@
 .groceries-container {
     flex: 1;
     padding: 20px;
+    padding-bottom: 100px;
 }
 
 .empty-state {
@@ -376,6 +377,7 @@
 
     .groceries-container {
         padding: 16px;
+        padding-bottom: 90px;
     }
 
     .form-actions {
