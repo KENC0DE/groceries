@@ -42,20 +42,45 @@
     white-space: nowrap;
 }
 
-.btn-add-toggle {
+.fab {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
     background-color: #27ae60;
     color: white;
-    padding: 12px 24px;
     border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 32px;
+    font-weight: 300;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    z-index: 998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
 }
 
-.btn-add-toggle:hover {
+.fab:hover {
     background-color: #229954;
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.fab:active {
+    transform: scale(0.95);
+}
+
+.fab-active {
+    background-color: #e74c3c;
+    transform: rotate(45deg);
+}
+
+.fab-active:hover {
+    background-color: #c0392b;
 }
 
 .search-container {
@@ -324,8 +349,12 @@
         padding: 5px 10px;
     }
 
-    .btn-add-toggle {
-        width: 100%;
+    .fab {
+        width: 56px;
+        height: 56px;
+        bottom: 20px;
+        right: 20px;
+        font-size: 28px;
     }
 
     .search-container {

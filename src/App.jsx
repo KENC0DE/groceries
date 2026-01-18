@@ -289,12 +289,6 @@ function App() {
             {groceries.length} item{groceries.length !== 1 ? "s" : ""}
           </span>
         </div>
-        <button
-          onClick={() => setShowAddForm(!showAddForm)}
-          className="btn btn-add-toggle"
-        >
-          {showAddForm ? "Cancel" : "+ Add New Item"}
-        </button>
       </header>
 
       <div className="search-container">
@@ -431,6 +425,14 @@ function App() {
           🔄 Refresh
         </button>
       </footer>
+
+      <button
+        onClick={() => setShowAddForm(!showAddForm)}
+        className={`fab ${showAddForm ? "fab-active" : ""}`}
+        aria-label="Add new item"
+      >
+        {showAddForm ? "✕" : "+"}
+      </button>
     </div>
   );
 }
