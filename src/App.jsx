@@ -283,7 +283,12 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>🛒 Groceries List</h1>
+        <div className="header-left">
+          <h1>🛒 Groceries List</h1>
+          <span className="item-count">
+            {groceries.length} item{groceries.length !== 1 ? "s" : ""}
+          </span>
+        </div>
         <button
           onClick={() => setShowAddForm(!showAddForm)}
           className="btn btn-add-toggle"
