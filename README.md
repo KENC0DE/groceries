@@ -81,13 +81,28 @@ function doGet(e) {
   // Update existing item
   if (action === 'update') {
     try {
-      const row = parseInt(e.parameter.row);
       const id = e.parameter.id || '';
       const name = e.parameter.name || '';
       const price = e.parameter.price || '';
       const imageUrl = e.parameter.imageUrl || '';
-      sheet.getRange(row, 1, 1, 4).setValues([[id, name, price, imageUrl]]);
-      result = { status: 'success', action: 'update' };
+      
+      // Find the row with matching ID
+      const data = sheet.getDataRange().getValues();
+      let rowIndex = -1;
+      
+      for (let i = 1; i < data.length; i++) { // Skip header row
+        if (data[i][0] && data[i][0].toString() === id) {
+          rowIndex = i + 1; // +1 because sheet rows are 1-based
+          break;
+        }
+      }
+      
+      if (rowIndex === -1) {
+        result = { status: 'error', message: 'Item not found' };
+      } else {
+        sheet.getRange(rowIndex, 1, 1, 4).setValues([[id, name, price, imageUrl]]);
+        result = { status: 'success', action: 'update' };
+      }
     } catch (error) {
       result = { status: 'error', message: error.toString() };
     }
@@ -96,9 +111,25 @@ function doGet(e) {
   // Delete item
   if (action === 'delete') {
     try {
-      const row = parseInt(e.parameter.row);
-      sheet.deleteRow(row);
-      result = { status: 'success', action: 'delete' };
+      const id = e.parameter.id || '';
+      
+      // Find the row with matching ID
+      const data = sheet.getDataRange().getValues();
+      let rowIndex = -1;
+      
+      for (let i = 1; i < data.length; i++) { // Skip header row
+        if (data[i][0] && data[i][0].toString() === id) {
+          rowIndex = i + 1; // +1 because sheet rows are 1-based
+          break;
+        }
+      }
+      
+      if (rowIndex === -1) {
+        result = { status: 'error', message: 'Item not found' };
+      } else {
+        sheet.deleteRow(rowIndex);
+        result = { status: 'success', action: 'delete' };
+      }
     } catch (error) {
       result = { status: 'error', message: error.toString() };
     }

@@ -134,9 +134,9 @@ function App() {
       setGroceries(updatedGroceries);
       saveToCache(updatedGroceries);
 
-      // Sync with server in background
+      // Sync with server in background - use item ID to find row
       console.log("Syncing update to Google Sheets...");
-      await updateGrocery(updatedItem, index);
+      await updateGrocery(updatedItem);
       console.log("Update synced successfully!");
     } catch (err) {
       console.error("Failed to sync update to Google Sheets:", err);
@@ -154,14 +154,16 @@ function App() {
 
   const handleDelete = async (index) => {
     try {
+      const itemToDelete = groceries[index];
+
       // Delete locally first for instant UI update
       const updatedGroceries = groceries.filter((_, i) => i !== index);
       setGroceries(updatedGroceries);
       saveToCache(updatedGroceries);
 
-      // Sync with server in background
+      // Sync with server in background - use item ID to find row
       console.log("Syncing delete to Google Sheets...");
-      await deleteGrocery(index);
+      await deleteGrocery(itemToDelete.id);
       console.log("Delete synced successfully!");
     } catch (err) {
       console.error("Failed to sync delete to Google Sheets:", err);
@@ -185,9 +187,10 @@ function App() {
       return;
     }
 
-    // Check for duplicate name (case-insensitive)
+    // Check for duplicate name (case-insensitive, trim both sides)
     const duplicateItem = groceries.find(
-      (item) => item.name.toLowerCase() === newItem.name.toLowerCase().trim(),
+      (item) =>
+        item.name.toLowerCase().trim() === newItem.name.toLowerCase().trim(),
     );
 
     if (duplicateItem) {

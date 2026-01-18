@@ -36,9 +36,9 @@ export const fetchGroceries = async () => {
 };
 
 // Update a single grocery item
-export const updateGrocery = async (item, rowIndex) => {
+export const updateGrocery = async (item) => {
   try {
-    const url = `${APPS_SCRIPT_URL}?action=update&row=${rowIndex + 2}&id=${encodeURIComponent(item.id)}&name=${encodeURIComponent(item.name)}&price=${encodeURIComponent(item.price)}&imageUrl=${encodeURIComponent(item.imageUrl)}`;
+    const url = `${APPS_SCRIPT_URL}?action=update&id=${encodeURIComponent(item.id)}&name=${encodeURIComponent(item.name)}&price=${encodeURIComponent(item.price)}&imageUrl=${encodeURIComponent(item.imageUrl)}`;
 
     const response = await fetch(url, {
       redirect: "follow",
@@ -83,9 +83,9 @@ export const addGrocery = async (item) => {
 };
 
 // Delete a grocery item
-export const deleteGrocery = async (rowIndex) => {
+export const deleteGrocery = async (itemId) => {
   try {
-    const url = `${APPS_SCRIPT_URL}?action=delete&row=${rowIndex + 2}`;
+    const url = `${APPS_SCRIPT_URL}?action=delete&id=${encodeURIComponent(itemId)}`;
 
     const response = await fetch(url, {
       redirect: "follow",
