@@ -1,9 +1,9 @@
 // Image Upload and Compression Utility
 
 const IMGBB_API_KEY = import.meta.env.VITE_IMGBB_API_KEY;
-const MAX_WIDTH = 800; // Max width in pixels
-const MAX_HEIGHT = 800; // Max height in pixels
-const QUALITY = 0.7; // JPEG quality (0.7 = 70%)
+const MAX_WIDTH = 600; // Max width in pixels
+const MAX_HEIGHT = 600; // Max height in pixels
+const QUALITY = 0.6; // JPEG quality (0.6 = 60%)
 
 /**
  * Compress and resize an image file
