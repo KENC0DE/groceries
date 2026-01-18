@@ -201,8 +201,8 @@ function App() {
         id: Date.now().toString(),
       };
 
-      // Add locally first for instant UI update
-      const updatedGroceries = [...groceries, itemToAdd];
+      // Add locally first for instant UI update (add to beginning)
+      const updatedGroceries = [itemToAdd, ...groceries];
       setGroceries(updatedGroceries);
       saveToCache(updatedGroceries);
       setNewItem({ id: "", name: "", price: "", imageUrl: "" });
