@@ -1,0 +1,229 @@
+.grocery-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    margin-bottom: 16px;
+    transition: box-shadow 0.3s ease;
+}
+
+.grocery-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.grocery-card-image {
+    width: 150px;
+    min-width: 150px;
+    height: 150px;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.image-edit-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.image-edit-container img {
+    width: 100%;
+    height: 70%;
+    object-fit: cover;
+}
+
+.image-upload-controls {
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 4px;
+    background-color: #f8f8f8;
+}
+
+.btn-upload {
+    padding: 4px 8px;
+    font-size: 11px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    font-weight: 500;
+}
+
+.btn-upload:hover {
+    background-color: #2980b9;
+}
+
+.btn-upload.uploading {
+    background-color: #95a5a6;
+    cursor: wait;
+}
+
+.image-url-input-small {
+    padding: 3px 6px;
+    font-size: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    width: 100%;
+}
+
+.image-url-input-small:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+.grocery-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-url-input {
+    width: 90%;
+    padding: 8px;
+    font-size: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.grocery-card-content {
+    flex: 1;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.grocery-card-details {
+    flex: 1;
+}
+
+.grocery-name {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.grocery-price {
+    font-size: 18px;
+    font-weight: 500;
+    color: #27ae60;
+}
+
+.name-input {
+    width: 100%;
+    max-width: 300px;
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    transition: border-color 0.3s ease;
+}
+
+.name-input:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+.price-input {
+    width: 150px;
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
+}
+
+.price-input:focus {
+    outline: none;
+    border-color: #27ae60;
+}
+
+.grocery-card-actions {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+}
+
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    min-width: 80px;
+}
+
+.btn-edit {
+    background-color: #3498db;
+    color: white;
+}
+
+.btn-edit:hover {
+    background-color: #2980b9;
+}
+
+.btn-delete {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-delete:hover {
+    background-color: #c0392b;
+}
+
+.btn-save {
+    background-color: #27ae60;
+    color: white;
+}
+
+.btn-save:hover {
+    background-color: #229954;
+}
+
+.btn-cancel {
+    background-color: #95a5a6;
+    color: white;
+}
+
+.btn-cancel:hover {
+    background-color: #7f8c8d;
+}
+
+/* Responsive design for mobile */
+@media (max-width: 600px) {
+    .grocery-card {
+        flex-direction: column;
+    }
+
+    .grocery-card-image {
+        width: 100%;
+        height: 200px;
+    }
+
+    .grocery-card-content {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .grocery-card-actions {
+        flex-direction: row;
+        margin-top: 12px;
+    }
+
+    .btn {
+        flex: 1;
+    }
+}
