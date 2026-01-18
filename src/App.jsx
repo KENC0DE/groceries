@@ -309,87 +309,90 @@ function App() {
       </div>
 
       {showAddForm && (
-        <div className="add-item-form">
-          <h2>Add New Item</h2>
-          <form onSubmit={handleAddItem}>
-            <div className="form-group">
-              <label>Name *</label>
-              <input
-                type="text"
-                value={newItem.name}
-                onChange={(e) =>
-                  setNewItem({ ...newItem, name: e.target.value })
-                }
-                placeholder="e.g., Tomatoes"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>Price (ETB) *</label>
-              <input
-                type="number"
-                value={newItem.price}
-                onChange={(e) =>
-                  setNewItem({ ...newItem, price: e.target.value })
-                }
-                placeholder="e.g., 25.50"
-                step="0.01"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>Image</label>
-              <div className="image-upload-section">
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleNewItemImageUpload}
-                  disabled={uploading}
-                  id="new-item-image-upload"
-                  style={{ display: "none" }}
-                />
-                <label
-                  htmlFor="new-item-image-upload"
-                  className={`btn btn-upload-main ${uploading ? "uploading" : ""}`}
-                >
-                  {uploading ? uploadProgress : "📷 Upload Image"}
-                </label>
+        <>
+          <div className="modal-overlay" onClick={handleCancelAdd}></div>
+          <div className="add-item-form">
+            <h2>Add New Item</h2>
+            <form onSubmit={handleAddItem}>
+              <div className="form-group">
+                <label>Name *</label>
                 <input
                   type="text"
-                  value={newItem.imageUrl}
+                  value={newItem.name}
                   onChange={(e) =>
-                    setNewItem({ ...newItem, imageUrl: e.target.value })
+                    setNewItem({ ...newItem, name: e.target.value })
                   }
-                  placeholder="Or paste image URL"
-                  className="image-url-input-main"
-                  disabled={uploading}
+                  placeholder="e.g., Tomatoes"
+                  required
                 />
-                {newItem.imageUrl && (
-                  <img
-                    src={newItem.imageUrl}
-                    alt="Preview"
-                    className="image-preview"
-                    onError={(e) => {
-                      e.target.style.display = "none";
-                    }}
-                  />
-                )}
               </div>
-            </div>
-            <div className="form-actions">
-              <button type="submit" className="btn btn-save">
-                Add Item
-              </button>
-              <button
-                type="button"
-                onClick={handleCancelAdd}
-                className="btn btn-cancel"
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
-        </div>
+              <div className="form-group">
+                <label>Price (ETB) *</label>
+                <input
+                  type="number"
+                  value={newItem.price}
+                  onChange={(e) =>
+                    setNewItem({ ...newItem, price: e.target.value })
+                  }
+                  placeholder="e.g., 25.50"
+                  step="0.01"
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Image</label>
+                <div className="image-upload-section">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleNewItemImageUpload}
+                    disabled={uploading}
+                    id="new-item-image-upload"
+                    style={{ display: "none" }}
+                  />
+                  <label
+                    htmlFor="new-item-image-upload"
+                    className={`btn btn-upload-main ${uploading ? "uploading" : ""}`}
+                  >
+                    {uploading ? uploadProgress : "📷 Upload Image"}
+                  </label>
+                  <input
+                    type="text"
+                    value={newItem.imageUrl}
+                    onChange={(e) =>
+                      setNewItem({ ...newItem, imageUrl: e.target.value })
+                    }
+                    placeholder="Or paste image URL"
+                    className="image-url-input-main"
+                    disabled={uploading}
+                  />
+                  {newItem.imageUrl && (
+                    <img
+                      src={newItem.imageUrl}
+                      alt="Preview"
+                      className="image-preview"
+                      onError={(e) => {
+                        e.target.style.display = "none";
+                      }}
+                    />
+                  )}
+                </div>
+              </div>
+              <div className="form-actions">
+                <button type="submit" className="btn btn-save">
+                  Add Item
+                </button>
+                <button
+                  type="button"
+                  onClick={handleCancelAdd}
+                  className="btn btn-cancel"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </>
       )}
 
       <main className="groceries-container">
