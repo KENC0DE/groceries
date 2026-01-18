@@ -21,6 +21,13 @@ export const fetchGroceries = async () => {
       imageUrl: row[3] || "",
     }));
 
+    // Sort by ID (timestamp) descending - newest first
+    groceries.sort((a, b) => {
+      const idA = parseInt(a.id) || 0;
+      const idB = parseInt(b.id) || 0;
+      return idB - idA; // Descending order
+    });
+
     return groceries;
   } catch (error) {
     console.error("Error fetching groceries:", error);
