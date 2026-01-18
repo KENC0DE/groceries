@@ -45,7 +45,6 @@
 .fab {
     position: fixed;
     bottom: 24px;
-    right: 24px;
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -62,6 +61,22 @@
     align-items: center;
     justify-content: center;
     line-height: 1;
+}
+
+.fab-add {
+    right: 24px;
+}
+
+.fab-refresh {
+    left: 24px;
+    background-color: #3498db;
+    font-size: 24px;
+}
+
+.fab-refresh:hover {
+    background-color: #2980b9;
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
 }
 
 .fab:hover {
@@ -251,28 +266,6 @@
     background-color: #2980b9;
 }
 
-.app-footer {
-    background-color: #ecf0f1;
-    padding: 16px 20px;
-    text-align: center;
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.btn-refresh {
-    background-color: #3498db;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.btn-refresh:hover {
-    background-color: #2980b9;
-}
-
 .image-upload-section {
     display: flex;
     flex-direction: column;
@@ -353,8 +346,16 @@
         width: 56px;
         height: 56px;
         bottom: 20px;
-        right: 20px;
         font-size: 28px;
+    }
+
+    .fab-add {
+        right: 20px;
+    }
+
+    .fab-refresh {
+        left: 20px;
+        font-size: 22px;
     }
 
     .search-container {

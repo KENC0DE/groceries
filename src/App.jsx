@@ -420,15 +420,17 @@ function App() {
         )}
       </main>
 
-      <footer className="app-footer">
-        <button onClick={loadGroceries} className="btn btn-refresh">
-          🔄 Refresh
-        </button>
-      </footer>
+      <button
+        onClick={loadGroceries}
+        className="fab fab-refresh"
+        aria-label="Refresh groceries"
+      >
+        🔄
+      </button>
 
       <button
         onClick={() => setShowAddForm(!showAddForm)}
-        className={`fab ${showAddForm ? "fab-active" : ""}`}
+        className={`fab fab-add ${showAddForm ? "fab-active" : ""}`}
         aria-label="Add new item"
       >
         {showAddForm ? "✕" : "+"}
